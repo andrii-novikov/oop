@@ -14,6 +14,11 @@ class Library
     @books, @orders, @readers, @authors = [], [], [], []
   end
 
+  def add_author(author, biography = "")
+    author = Author.new(author,biography) unless author.is_a? (Author)
+    @authors <<  author unless authors.include? author
+  end
+
   def save
     instance_variables.each do |variable|
       dump = YAML.dump(self.instance_variable_get(variable))
