@@ -22,6 +22,16 @@ class Library
     readers[res.each_with_index.max[1]]
   end
 
+  def most_popular_book
+    res = []
+    books.each do |r|
+      res << orders.count {|order| order.book == r}
+    end
+    books[res.each_with_index.max[1]]
+  end
+
+
+
   def add_author(author)
     if author.is_a?(Author)
       @authors <<  author unless authors.include? author

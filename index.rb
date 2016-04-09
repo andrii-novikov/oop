@@ -12,3 +12,5 @@ l.load
 puts l
 
 puts l.who_often_takes_the_book
+
+puts l.most_popular_book
