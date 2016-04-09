@@ -14,9 +14,36 @@ class Library
     @books, @orders, @readers, @authors = [], [], [], []
   end
 
-  def add_author(author, biography = "")
-    author = Author.new(author,biography) unless author.is_a? (Author)
-    @authors <<  author unless authors.include? author
+  def add_author(author)
+    if author.is_a?(Author)
+      @authors <<  author unless authors.include? author
+    else
+      raise ArgumentError.new('author must be instance of Author')
+    end
+  end
+
+  def add_book(book)
+    if book.is_a?(Book)
+      @books <<  book unless books.include? book
+    else
+      raise ArgumentError.new('book must be instance of Book')
+    end
+  end
+
+  def add_reader(reader)
+    if reader.is_a?(Reader)
+      @readers <<  reader unless readers.include? reader
+    else
+      raise ArgumentError.new('reader must be instance of Reader')
+    end
+  end
+
+  def add_order(order)
+    if order.is_a?(Order)
+      @orders <<  order unless orders.include? order
+    else
+      raise ArgumentError.new('order must be instance of Order')
+    end
   end
 
   def save
