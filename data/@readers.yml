@@ -1,0 +1,19 @@
+---
+- !ruby/object:Reader
+  name: Andy Novikov
+  email: andruha2921@gmail.com
+  city: 
+  street: 
+  house: 
+- !ruby/object:Reader
+  name: Veronik Zubova
+  email: veronik@gmail.com
+  city: 
+  street: 
+  house: 
+- !ruby/object:Reader
+  name: Kazancev Max
+  email: max@gmail.com
+  city: 
+  street: 
+  house: 

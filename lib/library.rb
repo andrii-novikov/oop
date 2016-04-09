@@ -25,6 +25,7 @@ class Library
   def add_book(book)
     if book.is_a?(Book)
       @books <<  book unless books.include? book
+      add_author(book.author)
     else
       raise ArgumentError.new('book must be instance of Book')
     end
@@ -40,7 +41,12 @@ class Library
 
   def add_order(order)
     if order.is_a?(Order)
-      @orders <<  order unless orders.include? order
+      if books.include? order.book
+        @orders <<  order unless orders.include? order
+        add_reader order.reader
+      else
+        raise ArgumentError.new("Library hasn't this book - #{order.book}")
+      end
     else
       raise ArgumentError.new('order must be instance of Order')
     end
@@ -49,7 +55,7 @@ class Library
   def save
     instance_variables.each do |variable|
       dump = YAML.dump(self.instance_variable_get(variable))
-      File.write("#{Library::DATA_DIR}/#{variable}",dump)
+      File.write("#{Library::DATA_DIR}/#{variable}.yml",dump)
     end
   end
 
