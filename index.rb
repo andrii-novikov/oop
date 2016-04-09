@@ -3,6 +3,10 @@ $LOAD_PATH << "#{$PROJECT_DIR}"
 $LOAD_PATH << "#{$PROJECT_DIR}/lib"
 require 'library'
 require 'json'
+# require 'library_data'
 
+l= Library.new
 
-require 'library_data'
+l.load
+
+puts l

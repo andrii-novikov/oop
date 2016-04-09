@@ -6,7 +6,7 @@ class Book
   end
 
   def to_s
-    "#{title}, #{author}"
+    "#{title}(#{author})"
   end
 
   def ==(other)

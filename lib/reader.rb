@@ -14,4 +14,13 @@ class Reader
       false
     end
   end
+
+  def to_s
+    result = "#{name}, email: #{email}"
+    unless city.is_a?(NilClass)
+      result << "address: #{city}"
+      result << ", #{street} #{house}" unless street.is_a?(NilClass)
+    end
+    result
+  end
 end

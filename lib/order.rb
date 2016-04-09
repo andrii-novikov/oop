@@ -16,4 +16,8 @@ class Order
       false
     end
   end
+
+  def to_s
+    "#{reader.name} takes #{book} #{date}"
+  end
 end

@@ -52,6 +52,21 @@ class Library
     end
   end
 
+  def to_s
+    "Books:" +
+    "\t#{books.join("\n\t")}"+
+
+    "\n\nAuthors:\n" +
+    "\t#{authors.join("\n\t")}" +
+
+    "\n\nReaders:\n" +
+    "\t#{readers.join("\n\t")}" +
+
+    "\n\nOrders:\n" +
+    "\t#{orders.join("\n\t")}"
+
+  end
+
   def save
     instance_variables.each do |variable|
       dump = YAML.dump(self.instance_variable_get(variable))
@@ -61,7 +76,7 @@ class Library
 
   def load
     instance_variables.each do |variable|
-      a = File.read("#{Library::DATA_DIR}/#{variable}")
+      a = File.read("#{Library::DATA_DIR}/#{variable}.yml")
       self.instance_variable_set(variable, YAML.load(a))
     end
   end
