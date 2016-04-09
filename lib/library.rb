@@ -14,6 +14,14 @@ class Library
     @books, @orders, @readers, @authors = [], [], [], []
   end
 
+  def who_often_takes_the_book
+    res = []
+    readers.each do |r|
+      res << orders.count {|order| order.reader == r}
+    end
+    readers[res.each_with_index.max[1]]
+  end
+
   def add_author(author)
     if author.is_a?(Author)
       @authors <<  author unless authors.include? author

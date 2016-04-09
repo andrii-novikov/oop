@@ -10,3 +10,5 @@ l= Library.new
 l.load
 
 puts l
+
+puts l.who_often_takes_the_book
