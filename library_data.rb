@@ -22,12 +22,21 @@ readers = [
 ]
 
 orders = [
-    Order.new(books[0],readers[0]),
-    Order.new(books[1],readers[0]),
-    Order.new(books[2],readers[0]),
-    Order.new(books[3],readers[1]),
     Order.new(books[0],readers[2]),
+    Order.new(books[1],readers[1]),
+    Order.new(books[2],readers[0]),
+    Order.new(books[2],readers[1]),
+    Order.new(books[2],readers[2]),
+    Order.new(books[4],readers[1]),
+    Order.new(books[4],readers[2]),
+    Order.new(books[5],readers[1]),
+    Order.new(books[5],readers[2]),
+    Order.new(books[5],readers[0]),
+    Order.new(books[6],readers[1]),
+    Order.new(books[6],readers[2]),
 ]
+
+#2,5,4,6,0,1,3,7
 
 library = Library.new
 
@@ -36,9 +45,6 @@ authors.each { |a| library.add_author(a)}
 orders.each { |o| library.add_order(o)}
 readers.each { |r| library.add_reader(r)}
 
-puts library.books
-puts library.orders
-puts library.readers
-puts library.authors
+puts library
 
 library.save

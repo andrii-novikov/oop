@@ -1,48 +1,82 @@
 ---
 - !ruby/object:Order
-  book: &4 !ruby/object:Book
+  book: !ruby/object:Book
     title: Indian Camp
     author: &1 !ruby/object:Author
       name: Ernest Hemingway
       biography: about Ernest Hemingway
-  reader: &2 !ruby/object:Reader
-    name: Andy Novikov
-    email: andruha2921@gmail.com
-    city: 
-    street: 
-    house: 
-  date: 2016-04-09 14:22:44.631846974 +03:00
-- !ruby/object:Order
-  book: !ruby/object:Book
-    title: Fifty Grand
-    author: *1
-  reader: *2
-  date: 2016-04-09 14:22:44.631849013 +03:00
-- !ruby/object:Order
-  book: !ruby/object:Book
-    title: Adventure
-    author: &3 !ruby/object:Author
-      name: Jack London
-      biography: about Jack London
-  reader: *2
-  date: 2016-04-09 14:22:44.631850004 +03:00
-- !ruby/object:Order
-  book: !ruby/object:Book
-    title: The Star Rover
-    author: *3
-  reader: !ruby/object:Reader
-    name: Veronik Zubova
-    email: veronik@gmail.com
-    city: 
-    street: 
-    house: 
-  date: 2016-04-09 14:22:44.631850744 +03:00
-- !ruby/object:Order
-  book: *4
-  reader: !ruby/object:Reader
+  reader: &4 !ruby/object:Reader
     name: Kazancev Max
     email: max@gmail.com
     city: 
     street: 
     house: 
-  date: 2016-04-09 14:22:44.631851447 +03:00
+  date: 2016-04-09 16:09:05.098723612 +03:00
+- !ruby/object:Order
+  book: !ruby/object:Book
+    title: Fifty Grand
+    author: *1
+  reader: &3 !ruby/object:Reader
+    name: Veronik Zubova
+    email: veronik@gmail.com
+    city: 
+    street: 
+    house: 
+  date: 2016-04-09 16:09:05.098726285 +03:00
+- !ruby/object:Order
+  book: &2 !ruby/object:Book
+    title: Adventure
+    author: &5 !ruby/object:Author
+      name: Jack London
+      biography: about Jack London
+  reader: &8 !ruby/object:Reader
+    name: Andy Novikov
+    email: andruha2921@gmail.com
+    city: 
+    street: 
+    house: 
+  date: 2016-04-09 16:09:05.098727310 +03:00
+- !ruby/object:Order
+  book: *2
+  reader: *3
+  date: 2016-04-09 16:09:05.098728152 +03:00
+- !ruby/object:Order
+  book: *2
+  reader: *4
+  date: 2016-04-09 16:09:05.098728843 +03:00
+- !ruby/object:Order
+  book: &6 !ruby/object:Book
+    title: Hearts of Three
+    author: *5
+  reader: *3
+  date: 2016-04-09 16:09:05.098729512 +03:00
+- !ruby/object:Order
+  book: *6
+  reader: *4
+  date: 2016-04-09 16:09:05.098730172 +03:00
+- !ruby/object:Order
+  book: &7 !ruby/object:Book
+    title: Руслан и Людмила
+    author: &9 !ruby/object:Author
+      name: Пушкин А.С.
+      biography: Биография пушкина
+  reader: *3
+  date: 2016-04-09 16:09:05.098730801 +03:00
+- !ruby/object:Order
+  book: *7
+  reader: *4
+  date: 2016-04-09 16:09:05.098731446 +03:00
+- !ruby/object:Order
+  book: *7
+  reader: *8
+  date: 2016-04-09 16:09:05.098732096 +03:00
+- !ruby/object:Order
+  book: &10 !ruby/object:Book
+    title: Евгений Онегин
+    author: *9
+  reader: *3
+  date: 2016-04-09 16:09:05.098732727 +03:00
+- !ruby/object:Order
+  book: *10
+  reader: *4
+  date: 2016-04-09 16:09:05.098733362 +03:00
