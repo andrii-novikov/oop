@@ -23,14 +23,20 @@ class Library
   end
 
   def most_popular_book
-    res = []
-    books.each do |r|
-      res << orders.count {|order| order.book == r}
-    end
-    books[res.each_with_index.max[1]]
+    books_by_popularity[0]
   end
 
+  def books_by_popularity
+    books.sort do |b1,b2|
+      books_popularity(b2) <=> books_popularity(b1)
+    end
+  end
 
+  def orders_with_popular_book
+    orders.count do |order|
+      books_by_popularity[0..2].include? order.book
+    end
+  end
 
   def add_author(author)
     if author.is_a?(Author)
@@ -97,5 +103,11 @@ class Library
       a = File.read("#{Library::DATA_DIR}/#{variable}.yml")
       self.instance_variable_set(variable, YAML.load(a))
     end
+  end
+
+  private
+
+  def books_popularity(book)
+    orders.count {|o| o.book == book}
   end
 end

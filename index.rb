@@ -9,8 +9,14 @@ l= Library.new
 
 l.load
 
+puts 'Library:'
 puts l
 
+puts "\nWho often takes the book?"
 puts l.who_often_takes_the_book
 
+puts "\nWhat is the most popular book"
 puts l.most_popular_book
+
+puts "\nHow many people ordered one of the three most popular books"
+puts l.orders_with_popular_book
