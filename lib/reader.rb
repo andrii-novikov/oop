@@ -9,7 +9,7 @@ class Reader
 
   def ==(other)
     if other.is_a? Reader
-      name == other.name && :email == other.email
+      name == other.name && email == other.email
     else
       false
     end
@@ -23,4 +23,5 @@ class Reader
     end
     result
   end
+
 end
