@@ -1,0 +1,10 @@
+---
+- !ruby/object:Author
+  name: Ernest Hemingway
+  biography: about Ernest Hemingway
+- !ruby/object:Author
+  name: Jack London
+  biography: about Jack London
+- !ruby/object:Author
+  name: Пушкин А.С.
+  biography: Биография пушкина

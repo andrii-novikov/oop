@@ -94,13 +94,13 @@ class Library
   def save
     instance_variables.each do |variable|
       dump = YAML.dump(self.instance_variable_get(variable))
-      File.write("#{Library::DATA_DIR}/#{variable}.yml",dump)
+      File.write("#{Library::DATA_DIR}/#{variable[1..-1]}.yml",dump)
     end
   end
 
   def load
     instance_variables.each do |variable|
-      a = File.read("#{Library::DATA_DIR}/#{variable}.yml")
+      a = File.read("#{Library::DATA_DIR}/#{variable[1..-1]}.yml")
       self.instance_variable_set(variable, YAML.load(a))
     end
   end
