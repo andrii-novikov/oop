@@ -6,7 +6,7 @@ require 'yaml'
 
 class Library
 
-  attr_reader :books, :orders, :readers, :authors
+  attr_accessor :books, :orders, :readers, :authors
 
   DATA_DIR = "#{$PROJECT_DIR}/data"
 
@@ -93,15 +93,17 @@ class Library
 
   def save
     instance_variables.each do |variable|
-      dump = YAML.dump(self.instance_variable_get(variable))
-      File.write("#{Library::DATA_DIR}/#{variable[1..-1]}.yml",dump)
+      variable = variable[1..-1]
+      dump = YAML.dump(send variable)
+      File.write("#{Library::DATA_DIR}/#{variable}.yml",dump)
     end
   end
 
   def load
     instance_variables.each do |variable|
-      a = File.read("#{Library::DATA_DIR}/#{variable[1..-1]}.yml")
-      self.instance_variable_set(variable, YAML.load(a))
+      variable = variable[1..-1]
+      dump = File.read("#{Library::DATA_DIR}/#{variable}.yml")
+      send("#{variable}=", YAML.load(dump))
     end
   end
 
