@@ -34,41 +34,26 @@ class Library
   end
 
   def add_author(author)
-    if author.is_a?(Author)
-      @authors <<  author unless authors.include? author
-    else
-      raise ArgumentError.new('author must be instance of Author')
-    end
+    raise ArgumentError.new('author must be instance of Author') unless author.is_a?(Author)
+    @authors <<  author unless authors.include? author
   end
 
   def add_book(book)
-    if book.is_a?(Book)
-      @books <<  book unless books.include? book
-      add_author(book.author)
-    else
-      raise ArgumentError.new('book must be instance of Book')
-    end
+    raise ArgumentError.new('book must be instance of Book') unless book.is_a?(Book)
+    @books <<  book unless books.include? book
+    add_author(book.author)
   end
 
   def add_reader(reader)
-    if reader.is_a?(Reader)
-      @readers <<  reader unless readers.include? reader
-    else
-      raise ArgumentError.new('reader must be instance of Reader')
-    end
+    raise ArgumentError.new('reader must be instance of Reader') unless reader.is_a?(Reader)
+    @readers <<  reader unless readers.include? reader
   end
 
   def add_order(order)
-    if order.is_a?(Order)
-      if books.include? order.book
-        @orders <<  order unless orders.include? order
-        add_reader order.reader
-      else
-        raise ArgumentError.new("Library hasn't this book - #{order.book}")
-      end
-    else
-      raise ArgumentError.new('order must be instance of Order')
-    end
+    raise ArgumentError.new('order must be instance of Order') unless order.is_a?(Order)
+    raise ArgumentError.new("Library hasn't this book - #{order.book}") unless books.include? order.book
+    @orders <<  order unless orders.include? order
+    add_reader order.reader
   end
 
   def to_s
