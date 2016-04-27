@@ -15,11 +15,7 @@ class Library
   end
 
   def who_often_takes_the_book
-    res = []
-    readers.each do |r|
-      res << orders.count {|order| order.reader == r}
-    end
-    readers[res.each_with_index.max[1]]
+    orders.group_by(&:reader).max {|a,b| a[1].size <=> a[1].size}[0]
   end
 
   def most_popular_book
@@ -27,15 +23,14 @@ class Library
   end
 
   def books_by_popularity
-    books.sort do |b1,b2|
-      books_popularity(b2) <=> books_popularity(b1)
-    end
+    orders.group_by(&:book).sort {|a,b| b[1].count <=> a[1].count}.map(&:first)
   end
 
-  def orders_with_popular_book
-    orders.count do |order|
-      books_by_popularity[0..2].include? order.book
+  def users_takes_popular_book
+    popular_books_orders = orders.select do |order|
+      books_by_popularity[0..2].include?(order.book)
     end
+    popular_books_orders.uniq(&:reader).count
   end
 
   def add_author(author)
@@ -105,11 +100,5 @@ class Library
       dump = File.read("#{Library::DATA_DIR}/#{variable}.yml")
       send("#{variable}=", YAML.load(dump))
     end
-  end
-
-  private
-
-  def books_popularity(book)
-    orders.count {|o| o.book == book}
   end
 end
