@@ -6,7 +6,7 @@ require 'yaml'
 
 class Library
 
-  attr_reader :books, :orders, :readers, :authors
+  attr_accessor :books, :orders, :readers, :authors
 
   DATA_DIR = "#{$PROJECT_DIR}/data"
 
@@ -15,11 +15,7 @@ class Library
   end
 
   def who_often_takes_the_book
-    res = []
-    readers.each do |r|
-      res << orders.count {|order| order.reader == r}
-    end
-    readers[res.each_with_index.max[1]]
+    orders.group_by(&:reader).max {|a,b| a[1].size <=> a[1].size}[0]
   end
 
   def most_popular_book
@@ -27,53 +23,37 @@ class Library
   end
 
   def books_by_popularity
-    books.sort do |b1,b2|
-      books_popularity(b2) <=> books_popularity(b1)
-    end
+    orders.group_by(&:book).sort {|a,b| b[1].count <=> a[1].count}.map(&:first)
   end
 
-  def orders_with_popular_book
-    orders.count do |order|
-      books_by_popularity[0..2].include? order.book
+  def users_takes_popular_book
+    popular_books_orders = orders.select do |order|
+      books_by_popularity[0..2].include?(order.book)
     end
+    popular_books_orders.uniq(&:reader).count
   end
 
   def add_author(author)
-    if author.is_a?(Author)
-      @authors <<  author unless authors.include? author
-    else
-      raise ArgumentError.new('author must be instance of Author')
-    end
+    raise ArgumentError.new('author must be instance of Author') unless author.is_a?(Author)
+    @authors <<  author unless authors.include? author
   end
 
   def add_book(book)
-    if book.is_a?(Book)
-      @books <<  book unless books.include? book
-      add_author(book.author)
-    else
-      raise ArgumentError.new('book must be instance of Book')
-    end
+    raise ArgumentError.new('book must be instance of Book') unless book.is_a?(Book)
+    @books <<  book unless books.include? book
+    add_author(book.author)
   end
 
   def add_reader(reader)
-    if reader.is_a?(Reader)
-      @readers <<  reader unless readers.include? reader
-    else
-      raise ArgumentError.new('reader must be instance of Reader')
-    end
+    raise ArgumentError.new('reader must be instance of Reader') unless reader.is_a?(Reader)
+    @readers <<  reader unless readers.include? reader
   end
 
   def add_order(order)
-    if order.is_a?(Order)
-      if books.include? order.book
-        @orders <<  order unless orders.include? order
-        add_reader order.reader
-      else
-        raise ArgumentError.new("Library hasn't this book - #{order.book}")
-      end
-    else
-      raise ArgumentError.new('order must be instance of Order')
-    end
+    raise ArgumentError.new('order must be instance of Order') unless order.is_a?(Order)
+    raise ArgumentError.new("Library hasn't this book - #{order.book}") unless books.include? order.book
+    @orders <<  order unless orders.include? order
+    add_reader order.reader
   end
 
   def to_s
@@ -93,21 +73,17 @@ class Library
 
   def save
     instance_variables.each do |variable|
-      dump = YAML.dump(self.instance_variable_get(variable))
+      variable = variable[1..-1]
+      dump = YAML.dump(send variable)
       File.write("#{Library::DATA_DIR}/#{variable}.yml",dump)
     end
   end
 
   def load
     instance_variables.each do |variable|
-      a = File.read("#{Library::DATA_DIR}/#{variable}.yml")
-      self.instance_variable_set(variable, YAML.load(a))
+      variable = variable[1..-1]
+      dump = File.read("#{Library::DATA_DIR}/#{variable}.yml")
+      send("#{variable}=", YAML.load(dump))
     end
-  end
-
-  private
-
-  def books_popularity(book)
-    orders.count {|o| o.book == book}
   end
 end
